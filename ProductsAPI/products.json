@@ -1,0 +1,12 @@
+{
+    "Products": [
+        {
+            "id": "786ae3c7-6edd-4cb5-8647-60c86e4e1c6b",
+            "name": "Laptop"
+        },
+        {
+            "id": "be6d0efe-0331-4ec0-b1b6-de7d4d4b89f4",
+            "name": "Desktop"
+        }
+    ]
+}

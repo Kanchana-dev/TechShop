@@ -1,0 +1,120 @@
+﻿@page "/products"
+@using Shopping_App.Models
+@using Shopping_App.Services
+@inject ProductsService productsService;
+@inject OrdersService ordersService;
+@inject IJSRuntime JsRuntime
+@inject NavigationManager navigationManager
+
+<h3>Products</h3>
+
+@if (products == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<div style="margin-bottom: 5px;">
+		<span style="height:2px;">&nbsp;</span>
+	</div>
+	<div>
+		<EditForm Model="products" OnValidSubmit="SubmitOrder" OnInvalidSubmit="@HandleInvalidSubmit">
+			<div>
+				<p>
+					<label>Please select a Product : </label>
+
+					<InputSelect class="my-select" @bind-Value="product.Id">
+						@foreach (var pro in products)
+						{
+							<option value="@pro.Id">@pro.Name</option>
+						}
+					</InputSelect>
+				</p>
+			</div>
+			<div style="margin-bottom: 5px;">
+				<span style="height:2px;">&nbsp;</span>
+			</div>
+			<div>
+				<p>
+					<label>Quantity : </label>
+
+					<InputSelect class="my-select" @bind-Value="selectedQuantity">
+						@foreach (var qua in quantity)
+						{
+							<option value="@qua">@qua</option>
+						}
+					</InputSelect>
+				</p>
+
+			</div>
+			<div style="margin-bottom: 5px;">
+				<span style="height:2px;">&nbsp;</span>
+			</div>
+			<div>
+				<button class="btn btn-primary" type="submit">Purchase</button>
+			</div>
+		</EditForm>
+	</div>
+}
+
+
+@code {
+	public List<Product>? products { get; set; }
+	private List<int> quantity { get; set; }
+	int selectedQuantity = 0;
+	private string? successMessage { get; set; }
+	private string? errorMessage { get; set; }
+	Product product = new Product();
+
+	protected override async Task OnInitializedAsync()
+	{
+		products = (await productsService.GetAllProducts()).ToList();
+		quantity = (await productsService.GetQuantity()).ToList();
+	}
+
+	public async void SubmitOrder()
+	{
+		try
+		{
+			if (selectedQuantity == 0 || product.Id == Guid.Empty)
+			{
+				await JsRuntime.InvokeVoidAsync("alert", "Please select a Product and Quantity");
+			}
+			else
+			{
+				Order order = new Order();
+				order.OrderId = Guid.NewGuid();
+				order.OrderTime = DateTime.UtcNow;
+				order.UserId = 1;
+				order.ProductId = product.Id;
+				order.ProductName = products.Where(x => x.Id == product.Id).FirstOrDefault().Name;
+				order.Quantity = selectedQuantity;
+
+				var isSuccess = await ordersService.AddOrder(order);
+				if (isSuccess)
+				{
+					successMessage = $"Order for Product(s) - {order.ProductName} is successfully.";
+					await JsRuntime.InvokeVoidAsync("alert", successMessage);
+					navigationManager.NavigateTo("/Orders");
+					errorMessage = null;
+				}
+				else
+				{
+					successMessage = null;
+					errorMessage = $"Error while adding new Order.";
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			successMessage = null;
+			errorMessage = $"Error while adding Order: {ex.Message}";
+		}
+	}
+
+	private void HandleInvalidSubmit()
+	{
+		successMessage = null;
+		errorMessage = null;
+	}
+}

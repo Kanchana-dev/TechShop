@@ -1,0 +1,56 @@
+﻿@inherits OrdersBase
+@page "/orders"
+@inject NavigationManager navigationManager
+@using Shopping_App.Models
+@using Shopping_App.Services
+@inject OrdersService ordersService;
+
+<PageTitle>My Orders</PageTitle>
+
+<h3>Orders</h3>
+@if (orders == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<table class="table table-striped">
+		<thead border: 1px solid black;>
+			<tr>
+				<th>Product</th>
+				<th>Quantity</th>
+				<th>Ordered Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var order in orders)
+			{
+				<tr>					
+					@* <td>@GetProductName(@order.ProductId)</td> *@
+					<td>@order.ProductName</td>
+					<td>@order.Quantity</td>
+					<td>@order.OrderTime</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+<button class="btn btn-primary" @onclick="AddOrder">Add Order</button>
+
+@code {
+
+	private List<Order> orders;
+
+
+	protected override async Task OnInitializedAsync()
+	{
+		orders = (await ordersService.GetAllOrdersByUser(1)).OrderBy(x => x.OrderTime).ToList();
+	}
+
+	private void AddOrder()
+	{		
+		navigationManager.NavigateTo("/Products");		
+	}
+	
+}
