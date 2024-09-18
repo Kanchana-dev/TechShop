@@ -1,6 +1,6 @@
 TechShop is a Blazor WebAssembly project built in .NET 8.0
 1.	Shopping_App is a Blazor Web App project that talks to two RESTful Web APIs.
-2.	Logging and Authentication are not yet available. 2 factor Authentication with  OAuth and JSON Web Tokens(retrieve and refresh for session) would be ideal.
+2.	Logging and Authentication are not yet available. Two factor Authentication with  OAuth and JSON Web Tokens(retrieve and refresh for session) would be ideal.
 3.	OrdersAPI and ProductsAPI are 2 RESTful Web API projects coded in .NET 8.0 
 4.	All 3 projects have respective xUnit Test(Moq) projects.
 5.	For POC purposes, Data is handled in JSON files mimicking no sql databases like SQLite.
