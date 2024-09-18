@@ -4,7 +4,7 @@ TechShop is a Blazor WebAssembly project built in .NET 8.0
 3.	OrdersAPI and ProductsAPI are 2 RESTful Web API projects coded in .NET 8.0 
 4.	All 3 projects have respective xUnit Test(Moq) projects.
 5.	For POC purposes, Data is handled in JSON files mimicking no sql databases like SQLite.
-    OrdersAPI project --> orders.json
+    OrdersAPI project --> orders.json,
     ProductsAPI project --> products.json
   	Provided commented out code snippets for SQLite, Entity Framework DbContext/Models configuration and usage. Data folder in Shopping_App project has commented out SQLite components.
 7.	Logging is performed with Serilog
