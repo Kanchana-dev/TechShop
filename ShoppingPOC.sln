@@ -9,15 +9,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopping_App", "Shopping_Ap
 	ProjectSection(ProjectDependencies) = postProject
 		{3A07C612-2D20-4ED0-A254-C184410EF9E4} = {3A07C612-2D20-4ED0-A254-C184410EF9E4}
 		{8D77AA01-38F3-4B72-8013-DC43DF3369CD} = {8D77AA01-38F3-4B72-8013-DC43DF3369CD}
+		{D5E6F00E-2885-4A36-A55D-76BCA9BF724B} = {D5E6F00E-2885-4A36-A55D-76BCA9BF724B}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductsAPI", "ProductsAPI\ProductsAPI.csproj", "{8D77AA01-38F3-4B72-8013-DC43DF3369CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingApp_UnitTest", "ShoppingApp_UnitTest\ShoppingApp_UnitTest.csproj", "{2123462F-EB47-4902-9097-F2C71320A75E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductAPI_Test", "ProductAPI_Test\ProductAPI_Test.csproj", "{47C17A60-9054-4731-8C4C-D6B32F53BEF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductAPI_Test", "ProductAPI_Test\ProductAPI_Test.csproj", "{47C17A60-9054-4731-8C4C-D6B32F53BEF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersAPI_Test", "OrdersAPI_Test\OrdersAPI_Test.csproj", "{2C1FEBD8-FF1F-4A7F-82F8-7DD5057D0EBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersAPI_Test", "OrdersAPI_Test\OrdersAPI_Test.csproj", "{2C1FEBD8-FF1F-4A7F-82F8-7DD5057D0EBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationAPI", "AuthenticationAPI\AuthenticationAPI.csproj", "{D5E6F00E-2885-4A36-A55D-76BCA9BF724B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +52,10 @@ Global
 		{2C1FEBD8-FF1F-4A7F-82F8-7DD5057D0EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C1FEBD8-FF1F-4A7F-82F8-7DD5057D0EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C1FEBD8-FF1F-4A7F-82F8-7DD5057D0EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E6F00E-2885-4A36-A55D-76BCA9BF724B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E6F00E-2885-4A36-A55D-76BCA9BF724B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E6F00E-2885-4A36-A55D-76BCA9BF724B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E6F00E-2885-4A36-A55D-76BCA9BF724B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

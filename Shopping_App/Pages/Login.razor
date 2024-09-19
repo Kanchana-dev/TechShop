@@ -1,0 +1,80 @@
+﻿@page "/login"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authorization
+@using Shopping_App.Models
+@using Shopping_App.Services
+
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
+
+
+<div class="col-md-6 offset-md-3 mt-5">
+	<EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+		<DataAnnotationsValidator />
+		<div class="form-group">
+			<label>Username</label>
+			<InputText  id="username" name="username" @bind-Value="model.UserName" class="form-control" required />
+			<ValidationMessage For="@(() => model.UserName)" />
+		</div>
+		<div style="margin-bottom: 5px;">
+			<span style="height:2px;">&nbsp;</span>
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<InputText id="password" name="password" @bind-Value="model.Password" type="password" class="form-control" required />
+			<ValidationMessage For="@(() => model.Password)" />
+		</div>
+		<div style="margin-bottom: 5px;">
+			<span style="height:2px;">&nbsp;</span>
+		</div>
+		<div>
+			<button class="btn btn-primary" type="submit">Login</button>
+		</div>
+		<div style="margin-bottom: 5px;">
+			<span style="height:2px;">&nbsp;</span>
+		</div>
+		@if (error is not null)
+		{
+			<p class="error" style="color:red">@error</p>
+		}
+	</EditForm>
+</div>
+
+
+@code {
+	private LoginModel model = new LoginModel();
+
+	private string? error;
+
+	protected override void OnInitialized()
+	{		
+		if (AuthService.token != null)
+		{
+			NavigationManager.NavigateTo("/home");
+		}
+	}
+
+	private async Task HandleValidSubmit()
+	{
+		try
+		{
+			await AuthService.Login(model);
+			if (AuthService.token != null)
+			{
+				NavigationManager.NavigateTo("/home");
+			}
+			else
+			{
+				error = "Invalid Login";
+			}
+		}
+		catch (Exception ex)
+		{
+			error = ex.Message;
+			StateHasChanged();
+		}
+	}
+
+
+}
+

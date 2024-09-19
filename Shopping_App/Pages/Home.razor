@@ -1,10 +1,18 @@
-﻿@page "/"
+﻿@page "/home"
+@using Microsoft.AspNetCore.Authorization
 
-<PageTitle>Home</PageTitle>
+@using Shopping_App.Services
+@inject AuthService AuthService
 
-<h5>Welcome to your new Shopping App</h5>
+@if (AuthService.token != null)
+{
+
+	
+
+	<h5>Welcome to your new Shopping App</h5>
 
 
-<label>Please proceed to <b><span style="color:rebeccapurple;font:400"><a href="/Orders">Orders</a></span></b></label>
-<label>	<span>or</span></label>
-<label><b><span style="color:rebeccapurple;font:400"><a href="/Products">Products</a></span></b> </label>
+	<label>Please proceed to <b><span style="color:rebeccapurple;font:400"><a href="/Orders">Orders</a></span></b></label>
+	<label>	<span>or</span></label>
+	<label><b><span style="color:rebeccapurple;font:400"><a href="/Products">Products</a></span></b> </label>
+}

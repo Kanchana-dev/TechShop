@@ -25,7 +25,7 @@ namespace OrdersAPI_Test
 				ProductName = "Laptop",
 				OrderTime = DateTime.UtcNow,
 				Quantity = 2,
-				UserId = 1
+				UserId = new Guid("0a674ca2-c2b7-4269-ae42-fb7bb70728da")
 			});
 			orders.Add(new Order()
 			{
@@ -34,7 +34,7 @@ namespace OrdersAPI_Test
 				ProductName = "Desktop",
 				OrderTime = DateTime.UtcNow,
 				Quantity = 1,
-				UserId = 1
+				UserId = new Guid("0a674ca2-c2b7-4269-ae42-fb7bb70728da")
 			});
 			ordersBR = new Mock<IOrdersBusinessRules>();
 			ordersRepo = new Mock<IOrdersRepository>();
@@ -57,8 +57,8 @@ namespace OrdersAPI_Test
 		public async Task GetOrdersByUser()
 		{
 			ordersRepo.Setup(x => x.GetAllOrders(new CancellationToken())).ReturnsAsync(orders);
-			ordersBR.Setup(x => x.GetUserOrders(1, new CancellationToken())).ReturnsAsync(orders);
-			var result = await orderController.Get(1, new CancellationToken()) as OkObjectResult;
+			ordersBR.Setup(x => x.GetUserOrders(new Guid("0a674ca2-c2b7-4269-ae42-fb7bb70728da"), new CancellationToken())).ReturnsAsync(orders);
+			var result = await orderController.Get(new Guid("0a674ca2-c2b7-4269-ae42-fb7bb70728da"), new CancellationToken()) as OkObjectResult;
 
 			Assert.NotNull(result);
 			Assert.Equal(200, result.StatusCode);

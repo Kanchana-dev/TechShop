@@ -1,10 +1,11 @@
 ﻿@page "/products"
 @using Shopping_App.Models
 @using Shopping_App.Services
-@inject ProductsService productsService;
-@inject OrdersService ordersService;
+@inject ProductsService productsService
+@inject OrdersService ordersService
 @inject IJSRuntime JsRuntime
 @inject NavigationManager navigationManager
+@inject AuthService AuthService
 
 <h3>Products</h3>
 
@@ -18,7 +19,7 @@ else
 		<span style="height:2px;">&nbsp;</span>
 	</div>
 	<div>
-		<EditForm Model="products" OnValidSubmit="SubmitOrder" OnInvalidSubmit="@HandleInvalidSubmit">
+		<EditForm Model="products" OnValidSubmit="SubmitOrder" OnInvalidSubmit="HandleInvalidSubmit">
 			<div>
 				<p>
 					<label>Please select a Product : </label>
@@ -85,7 +86,7 @@ else
 				Order order = new Order();
 				order.OrderId = Guid.NewGuid();
 				order.OrderTime = DateTime.UtcNow;
-				order.UserId = 1;
+				order.UserId = AuthService.LoggedUser.UserId;
 				order.ProductId = product.Id;
 				order.ProductName = products.Where(x => x.Id == product.Id).FirstOrDefault().Name;
 				order.Quantity = selectedQuantity;
@@ -93,15 +94,17 @@ else
 				var isSuccess = await ordersService.AddOrder(order);
 				if (isSuccess)
 				{
+					errorMessage = null;
 					successMessage = $"Order for Product(s) - {order.ProductName} is successfully.";
 					await JsRuntime.InvokeVoidAsync("alert", successMessage);
-					navigationManager.NavigateTo("/Orders");
-					errorMessage = null;
+					navigationManager.NavigateTo("/Orders");					
 				}
 				else
 				{
 					successMessage = null;
 					errorMessage = $"Error while adding new Order.";
+					await JsRuntime.InvokeVoidAsync("alert", errorMessage);
+					navigationManager.NavigateTo("/Orders");
 				}
 			}
 		}

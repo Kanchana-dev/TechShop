@@ -1,8 +1,12 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using OrdersAPI.BusinessRules;
 using OrdersAPI.Middleware;
 using OrdersAPI.Repositories;
 using Serilog;
+using System.Text;
 
 namespace OrdersAPI
 {
@@ -22,17 +26,71 @@ namespace OrdersAPI
 			// Add services to the container.
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();
-			builder.Services.AddSwaggerGen();
+			builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter 'Bearer [jwt]'",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
 
-			// Dependency Injection			
-			builder.Services.AddScoped<IOrdersBusinessRules, OrdersBusinessRules>();
+                var scheme = new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                };
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement { { scheme, Array.Empty<string>() } });
+            });
+
+            // Dependency Injection			
+            builder.Services.AddScoped<IOrdersBusinessRules, OrdersBusinessRules>();
 			builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 
 			//Middlerware - GlobalExceptionHandler
 			builder.Services.AddExceptionHandler<OrdersAPIGlobalExceptionHandler>();
 			builder.Services.AddProblemDetails();
 
-			var app = builder.Build();
+            //JWTToken Autherization
+            var secret = builder.Configuration["JwtSettings:SecretKey"] ?? throw new InvalidOperationException("Secret not configured");
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
+                    ClockSkew = new TimeSpan(0, 0, 5)
+                };
+            });
+
+            const string policy = "defaultPolicy";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(policy,
+                                  p =>
+                                  {
+                                      p.AllowAnyHeader();
+                                      p.AllowAnyMethod();
+                                      p.AllowAnyHeader();
+                                      p.AllowAnyOrigin();
+                                  });
+            });
+
+            var app = builder.Build();
 
 			app.UseExceptionHandler();
 			app.UseStatusCodePages();
@@ -48,7 +106,9 @@ namespace OrdersAPI
 				app.UseSwaggerUI();
 			}
 
-			app.UseAuthorization();
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 			app.UseExceptionHandler();
 
 			app.MapControllers();

@@ -4,7 +4,7 @@ namespace Shopping_App.Services
 {
     public interface IOrdersService
     {
-        Task<List<Order>> GetAllOrdersByUser(int userId);
+        Task<List<Order>> GetAllOrdersByUser(Guid userId);
         Task<bool> AddOrder(Order order);
 
 	}

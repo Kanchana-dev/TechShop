@@ -3,7 +3,9 @@
 @inject NavigationManager navigationManager
 @using Shopping_App.Models
 @using Shopping_App.Services
-@inject OrdersService ordersService;
+@inject OrdersService ordersService
+@inject AuthService AuthService
+
 
 <PageTitle>My Orders</PageTitle>
 
@@ -42,10 +44,9 @@ else
 
 	private List<Order> orders;
 
-
 	protected override async Task OnInitializedAsync()
-	{
-		orders = (await ordersService.GetAllOrdersByUser(1)).OrderBy(x => x.OrderTime).ToList();
+	{		
+			orders = (await ordersService.GetAllOrdersByUser(AuthService.LoggedUser.UserId)).OrderBy(x => x.OrderTime).ToList();		
 	}
 
 	private void AddOrder()

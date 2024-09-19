@@ -25,7 +25,7 @@ namespace OrdersAPI.BusinessRules
 			return new List<Order>();
 		}
 
-        public async Task<List<Order>> GetUserOrders(int userId, CancellationToken ct=default)
+        public async Task<List<Order>> GetUserOrders(Guid userId, CancellationToken ct=default)
         {
             var orders = _ordersRepo.GetAllOrders(ct).Result.ToList();
             if (orders != null && orders.Count > 0)
@@ -39,7 +39,7 @@ namespace OrdersAPI.BusinessRules
 		public async Task<bool> AddOrder(Order order)
 		{
 			var result = _ordersRepo.AddOrder(order);
-			return true;
+			return result.Result;
 		}
 	}
 }

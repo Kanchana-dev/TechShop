@@ -1,33 +1,42 @@
 ﻿@inherits LayoutComponentBase
+@using Shopping_App.Services
+@inject AuthService AuthService
 
-<ErrorBoundary @ref="_errorBoundry" Context="ex">
-	<ChildContent>
-	<div class="page">
-		<div class="sidebar">
-			<NavMenu />
-		</div>
+@if (AuthService.token != null)
+{
+	<ErrorBoundary @ref="_errorBoundry" Context="ex">
+		<ChildContent>
+			<div class="page">
+				<div class="sidebar">
+					<NavMenu />
+				</div>
+				<main>
+					<article class="content px-4">
+						@Body
+					</article>
+				</main>
 
-		<main>
-			<div class="top-row px-4">
-				<a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
 			</div>
+		</ChildContent>
+		<ErrorContent>
+			<Error OnHandle="RefreshErrorBoundry" ErrorMessage="ex" />
+		</ErrorContent>
+	</ErrorBoundary>
+}
+else
+{
+	<main>
+		<article class="content px-4">
+			@Body
+		</article>
+	</main>
+}
 
-			<article class="content px-4">
-				@Body
-			</article>
-		</main>
-	</div>
-	</ChildContent>
-	<ErrorContent>
-		<Error OnHandle="RefreshErrorBoundry" ErrorMessage="ex" />
-	</ErrorContent>
-</ErrorBoundary>
-
-@code{
+@code {
 	private ErrorBoundary _errorBoundry;
 
 	public void RefreshErrorBoundry()
-	{	
+	{
 		_errorBoundry?.Recover();
 	}
 

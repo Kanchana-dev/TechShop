@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OrdersAPI.BusinessRules;
 using OrdersAPI.Models;
 
 namespace OrdersAPI.Controllers
 {
-	[Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class OrdersController : ControllerBase
 	{
@@ -43,7 +45,7 @@ namespace OrdersAPI.Controllers
 
 		// GET api/<OrdersController>/5
 		[HttpGet("getallorders/{id}")]
-		public async Task<IActionResult> Get(int id, CancellationToken ct=default)
+		public async Task<IActionResult> Get(Guid id, CancellationToken ct=default)
 		{
             _logger.LogInformation($"Get Orders by UserId - {id}");
 

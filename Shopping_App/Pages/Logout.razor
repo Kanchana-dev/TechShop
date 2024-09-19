@@ -1,0 +1,12 @@
+﻿@page "/logout"
+@using Shopping_App.Services
+@inject AuthService AuthService
+
+<h3>logout</h3>
+
+@code {
+    protected override async void OnInitialized()
+    {
+        await AuthService.Logout();
+    }
+}

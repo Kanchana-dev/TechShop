@@ -1,30 +1,50 @@
 ﻿using Shopping_App.Models;
-using System.Net.Http.Json;
 
 namespace Shopping_App.Services
 {
-	public class ProductsService
+    public class ProductsService
 	{
-		private IHttpClientFactory _httpFactory;
-		public ProductsService(IHttpClientFactory httpFactory, ILogger<OrdersService> logger)
-		{
-			_httpFactory = httpFactory;
-		}
+		private IAppHttpService _appHttpService;
+        private ILogger<ProductsService> _logger;
 
+        public ProductsService(AppHttpService appHttpService, ILogger<ProductsService> logger)
+		{			
+			_appHttpService = appHttpService;
+			_logger = logger;
+		}
 		public async Task<List<Product>> GetAllProducts()
 		{
-			var _httpClient = _httpFactory.CreateClient("productsService");
+			try
+			{
+				_logger.LogInformation("In Products Service getting all Products");
+				var result = await _appHttpService.Get<List<Product>>($"api/products", "products");
+                _logger.LogInformation("Successful retrieved all Products");
 
-			var result = await _httpClient.GetFromJsonAsync<List<Product>>($"api/products");
-			return result!;
+                return result!;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex.Message, ex.InnerException,ex.StackTrace);
+				return null;
+			}
 		}
 
 		public async Task<List<int>> GetQuantity()
 		{
-			var _httpClient = _httpFactory.CreateClient("productsService");
+			try
+			{
+				_logger.LogInformation("In Products Service getting Quantity");
+				var result = await _appHttpService.Get<List<int>>($"api/products/quantity", "products");
+                _logger.LogInformation("Successful retrieved Quantity");
 
-			var result = await _httpClient.GetFromJsonAsync<List<int>>($"api/products/quantity");
-			return result!;
-		}
+                return result!;
+			}
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex.InnerException, ex.StackTrace);
+                return null;
+            }
+        }
 	}
+	
 }

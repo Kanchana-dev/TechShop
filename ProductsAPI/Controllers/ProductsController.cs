@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProductsAPI.BusinessRules;
 
 namespace ProductsAPI.Controllers
 {
+	[Authorize(AuthenticationSchemes = "Bearer")]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ProductsController : ControllerBase

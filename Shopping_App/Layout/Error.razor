@@ -1,20 +1,22 @@
 ﻿@inject NavigationManager navigationManager
 @inject ILogger<Error> logger
-<h3>Error</h3>
 
+
+<div class="col-md-6 offset-md-3 mt-5">
 <div class="card">
 	<div class="card-header bg-danger text-white">
 		<h5 class="m-0">Unexpected Error</h5>
 	</div>
 	<div class="card-body">
 		<p>Something went wrong</p>
-		<pre class="bg-secondary p-3">@ErrorMessage.Message</pre>
+		@* <pre class="bg-secondary p-3">@ErrorMessage.Message</pre> *@
+		<pre class="bg-secondary p-3">Something went wrong</pre>
 	</div>
 	<div >		
 		<button type="button" class="btn btn-secondary" @onclick="ErrorRecover">OK</button>
 	</div>
 </div>
-
+</div>
 
 @code {
 	[Parameter, EditorRequired]
@@ -27,7 +29,8 @@
 	{
 		logger.LogError(ErrorMessage.InnerException, ErrorMessage.Message, ErrorMessage.StackTrace, ErrorMessage.GetType());
 		string Url = navigationManager.BaseUri.ToString();
-		navigationManager.NavigateTo(Url + "Home", forceLoad: true);
+		
+		navigationManager.NavigateTo("/home", forceLoad: true);
 	}
 
 }

@@ -1,45 +1,54 @@
 ﻿using Shopping_App.Models;
-using System.Net.Http.Json;
 
 namespace Shopping_App.Services
 {
-	public class OrdersService : IOrdersService
-	{			
-		private IHttpClientFactory _httpFactory;
-		private ILogger<OrdersService> _logger;
-		public OrdersService(IHttpClientFactory httpFactory, ILogger<OrdersService> logger)
-		{
-			_httpFactory = httpFactory;		
-			_logger = logger;
-		}
+    public class OrdersService : IOrdersService
+    {
+        private IAppHttpService _appHttpService;
+        private ILogger<OrdersService> _logger;
+        public OrdersService(AppHttpService appHttpService, ILogger<OrdersService> logger)
+        {
+            _appHttpService = appHttpService;
+            _logger = logger;
+        }
 
-		public async Task<List<Order>> GetAllOrdersByUser(int userId)
-		{			
-			var _httpClient = _httpFactory.CreateClient("ordersService");
+        public async Task<List<Order>> GetAllOrdersByUser(Guid userId)
+        {
+            try
+            {
+                _logger.LogInformation($"In Orders Service getting Orders by UserId - {userId}");
+                var result = await _appHttpService.Get<List<Order>>($"api/orders/getallorders/{userId}", "orders");
+                _logger.LogInformation($"Successful retrieved Orders by UserId - {userId}");
 
-			var result = await _httpClient.GetFromJsonAsync<List<Order>>($"api/orders/getallorders/{userId}");
-			return result;
-		}
+                return result!;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex.InnerException, ex.StackTrace);
+                return null;
+            }
+        }
 
-		public async Task<bool> AddOrder(Order order)
-		{
-			try
-			{
-				var _httpClient = _httpFactory.CreateClient("ordersService");
+        public async Task<bool> AddOrder(Order order)
+        {
+            try
+            {
+                _logger.LogInformation($"In Orders Service Adding Order - {order}");
 
-				var result = await _httpClient.PostAsJsonAsync<Order>($"api/orders/addorder", order);
-				result.EnsureSuccessStatusCode();
+                var result = await _appHttpService.Post<bool>($"api/orders/addorder", order, "orders");               
 
-				return true;
-			}
-			catch(Exception ex)
-			{
-				_logger.LogError(ex.Message, ex.InnerException, ex.StackTrace);
-				return false;
-			}
-		}
+                _logger.LogInformation($"Successful added Order - {order}");
 
-	}
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex.InnerException, ex.StackTrace);
+                return false;
+            }
+        }
+
+    }
 
 
-	}
+}
