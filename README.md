@@ -4,7 +4,7 @@ TechShop is a Blazor WebAssembly project built in .NET 8.0
 3.	Logging and Authentication are provided with JSON Web Tokens.
 4.	Adding users is under works. If more uers are needed, Please add in AuthenticationAPI/users.json
 5.	Session state is nullified on Shopping_App Error. Please update URL to "http://localhost:1234/" that prompts to login page. Would have to re-login.
-6.	Sample JWT for Swagger or Postman:    eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdCIsImp0aSI6ImMwNTIzZTk3LWE3YTMtNGIyYy05YzBiLWE5MDY4NmY4NGIxOCIsIm5iZiI6MTcyNjg1MzM3MiwiZXhwIjoxNzI5NDQ1MzcyfQ.piRvGrWhr3dAShRn9SObpCzkKPP1mIwhWQKUsIgg0Mg
+6.	Sample JWT for Swagger or Postman:    eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdCIsImp0aSI6ImMwNTIzZTk3LWE3YTMtNGIyYy05YzBiLWE5MDY4NmY4NGIxOCIsIm5iZiI6MTcyNjg1MzM3MiwiZXhwIjoxNzI5NDQ1MzcyfQ.piRvGrWhr3dAShRn9SObpCzkKPP1mIwhWQKUsIgg0Mg                                                                  
    Expires: 2024-10-20T17:29:32.000Z
 8.	OrdersAPI and ProductsAPI are two RESTful Web API projects coded in .NET 8.0 Authorized to look for JWT Bearer.
 9.	All projects have respective xUnit Test(Moq) projects.
