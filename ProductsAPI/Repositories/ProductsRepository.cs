@@ -47,7 +47,7 @@ namespace ProductsAPI.Repositories
 			}
 			catch(Exception ex) 
 			{
-				_logger.LogError(ex.StackTrace, ex.InnerException);
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
 				return null;
 			}
 		}
@@ -80,7 +80,7 @@ namespace ProductsAPI.Repositories
 			}
 			catch(Exception ex)
 			{
-				_logger.LogError(ex.StackTrace, ex.InnerException);
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
 				return null;
 			}
 		}

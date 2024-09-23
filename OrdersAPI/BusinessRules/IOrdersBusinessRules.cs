@@ -6,6 +6,6 @@ namespace OrdersAPI.BusinessRules
 	{
 		Task<List<Order>> GetAllOrders(CancellationToken ct = default);
 		Task<List<Order>> GetUserOrders(Guid userId, CancellationToken ct=default);        
-		Task<bool> AddOrder(Order order);
+		Task<bool> AddOrder(Order order, CancellationToken ct = default);
 	}
 }

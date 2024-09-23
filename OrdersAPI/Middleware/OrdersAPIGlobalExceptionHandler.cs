@@ -14,7 +14,7 @@ namespace OrdersAPI.Middleware
 
 		async ValueTask<bool> IExceptionHandler.TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
 		{
-			_logger.LogError(exception, "Exception occurred: {Message}", exception.Message);
+			_logger.LogError(exception, $"Exception occurred: {exception.Message}", exception.StackTrace);
 
 			var problemDetails = new ProblemDetails
 			{

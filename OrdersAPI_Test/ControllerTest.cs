@@ -79,8 +79,8 @@ namespace OrdersAPI_Test
 		[Fact]
 		public async Task AddOrder()
 		{			
-			ordersRepo.Setup(x => x.AddOrder(orders[0])).ReturnsAsync(true);  
-			ordersBR.Setup(x => x.AddOrder(orders[0])).ReturnsAsync(true);
+			ordersRepo.Setup(x => x.AddOrder(orders[0], new CancellationToken())).ReturnsAsync(true);  
+			ordersBR.Setup(x => x.AddOrder(orders[0], new CancellationToken())).ReturnsAsync(true);
 			var result = await orderController.Post(orders[0]) as OkObjectResult;
 
 			Assert.NotNull(result);

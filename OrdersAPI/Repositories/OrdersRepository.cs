@@ -40,20 +40,22 @@ namespace OrdersAPI.Repositories
 			}
 			catch (TaskCanceledException cte)
 			{
-				_logger.LogError(cte.Message, cte.InnerException, cte.Source);
+				_logger.LogError($"{cte.Message}{Environment.NewLine}{cte.StackTrace}");
 				return null;
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex.StackTrace, ex.InnerException);
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
 				return null;
 			}
 		}
 
-		public async Task<bool> AddOrder(Order order)
+		public async Task<bool> AddOrder(Order order, CancellationToken ct = default)
 		{
 			try
 			{
+				_logger.LogInformation("AddOrder -Delaying Task to check for cancellation event");
+				await Task.Delay(1000, ct);
 				var isSucess = JsonHelper.WriteToJsonFile(order);
 				if (isSucess)
 				{
@@ -66,9 +68,14 @@ namespace OrdersAPI.Repositories
 				}
 				return false;
 			}
+			catch (TaskCanceledException cte)
+			{
+				_logger.LogError($"{cte.Message}{Environment.NewLine}{cte.StackTrace} ");
+				return false;
+			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex.StackTrace, ex.InnerException);
+				_logger.LogError($"Exception adding new order : {JsonConvert.SerializeObject(order)} {Environment.NewLine}{ex.Message} {Environment.NewLine}{ex.StackTrace}  ");
 				return false;
 			}
 		}

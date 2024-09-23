@@ -24,8 +24,8 @@ namespace Shopping_App.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex.InnerException, ex.StackTrace);
-                return null;
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
+				return null;
             }
         }
 
@@ -35,16 +35,23 @@ namespace Shopping_App.Services
             {
                 _logger.LogInformation($"In Orders Service Adding Order - {order}");
 
-                var result = await _appHttpService.Post<bool>($"api/orders/addorder", order, "orders");               
+                var result = await _appHttpService.Post<bool>($"api/orders/addorder", order, "orders");
 
-                _logger.LogInformation($"Successful added Order - {order}");
-
-                return true;
+                if (result)
+                {
+                    _logger.LogInformation($"Successful added Order - {order}");
+                    return true;
+                }
+                else
+                {
+					_logger.LogInformation($"UnSuccessful adding Order - {order}");
+					return false;
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex.InnerException, ex.StackTrace);
-                return false;
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
+				return false;
             }
         }
 

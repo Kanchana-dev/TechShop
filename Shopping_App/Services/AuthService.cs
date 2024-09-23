@@ -53,7 +53,7 @@ namespace Shopping_App.Services
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex.StackTrace, ex.Message, ex.InnerException);
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
 			}
 		}
 

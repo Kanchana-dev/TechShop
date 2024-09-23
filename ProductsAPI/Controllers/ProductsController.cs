@@ -29,7 +29,7 @@ namespace ProductsAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex.StackTrace);
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
 				return StatusCode(500, ex.Message);
 			}
 		}
@@ -46,7 +46,7 @@ namespace ProductsAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex.StackTrace);
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
 				return StatusCode(500, ex.Message);
 			}
 		}

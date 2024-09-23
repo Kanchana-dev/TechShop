@@ -32,12 +32,12 @@ namespace OrdersAPI.Controllers
 			}
 			catch (OperationCanceledException cte)
 			{
-				_logger.LogError(cte.Message, cte.InnerException, cte.Source);
+				_logger.LogError($"Client cancelled Task: {cte.Message}{Environment.NewLine}{cte.StackTrace} ");
 				throw;
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex.StackTrace, ex.InnerException);
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
 				return StatusCode(500, ex.Message);
 			}			
 		}
@@ -55,14 +55,17 @@ namespace OrdersAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace, ex.InnerException);
-                return StatusCode(500, ex.Message);
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
+				return StatusCode(500, ex.Message);
             }
         }
 
 		// POST api/<OrdersController>
 		[HttpPost]
-		[Route("addorder")]
+		[Route("addorder")]		
+		[ProducesResponseType<Order>(StatusCodes.Status201Created)]
+		[ProducesResponseType(StatusCodes.Status499ClientClosedRequest)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<IActionResult> Post([FromBody] Order order, CancellationToken ct = default)
 		{
 			_logger.LogInformation($"Adding new Order : {JsonConvert.SerializeObject(order)} ");
@@ -74,7 +77,7 @@ namespace OrdersAPI.Controllers
 
 			try
 			{
-				return Ok(_ordersBusinessRules.AddOrder(order).Result);
+				return Ok(_ordersBusinessRules.AddOrder(order, ct).Result);		  
 			}
 			catch (TaskCanceledException cte)
 			{
@@ -82,7 +85,7 @@ namespace OrdersAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex.StackTrace, ex.InnerException);
+				_logger.LogError($"{ex.Message}{Environment.NewLine}{ex.InnerException} {Environment.NewLine}{ex.StackTrace}");
 				return StatusCode(500, ex.Message);
 			}			
 		}		

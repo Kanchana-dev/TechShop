@@ -36,9 +36,9 @@ namespace OrdersAPI.BusinessRules
             return new List<Order>();
         }
        
-		public async Task<bool> AddOrder(Order order)
+		public async Task<bool> AddOrder(Order order, CancellationToken ct = default)
 		{
-			var result = _ordersRepo.AddOrder(order);
+			var result = _ordersRepo.AddOrder(order,ct);
 			return result.Result;
 		}
 	}
