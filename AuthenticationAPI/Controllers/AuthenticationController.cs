@@ -20,8 +20,8 @@ namespace AuthenticationAPI.Controllers
 			_logger = logger;
 		}
 
-		[HttpPost("Login")]
-		public async Task<IActionResult> Login([FromBody] LoginModel model)
+		[HttpPost("Login")]		
+		public IActionResult Login([FromBody] LoginModel model)
 		{
 			_logger.LogInformation("Login called");
 			var isValidUser = IsUserValid(model.UserName);

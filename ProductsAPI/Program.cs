@@ -31,7 +31,7 @@ namespace ProductsAPI
 				options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 				{
 					In = ParameterLocation.Header,
-					Description = "Please enter 'jwt'",
+					Description = "Please enter 'Bearer jwt'",
 					Name = "Authorization",
 					Type = SecuritySchemeType.ApiKey
 				});

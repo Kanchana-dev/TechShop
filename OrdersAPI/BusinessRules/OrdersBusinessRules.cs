@@ -16,7 +16,7 @@ namespace OrdersAPI.BusinessRules
 
 		public async Task<List<Order>> GetAllOrders(CancellationToken ct = default)
 		{
-			var orders = _ordersRepo.GetAllOrders(ct).Result;
+			var orders = await _ordersRepo.GetAllOrders(ct);
 			if (orders != null && orders.Count > 0)
 			{
 				return orders;
@@ -27,7 +27,7 @@ namespace OrdersAPI.BusinessRules
 
         public async Task<List<Order>> GetUserOrders(Guid userId, CancellationToken ct=default)
         {
-            var orders = _ordersRepo.GetAllOrders(ct).Result.ToList();
+            var orders = await _ordersRepo.GetAllOrders(ct);
             if (orders != null && orders.Count > 0)
             {
                return orders.Where(x => x.UserId == userId).ToList();				
@@ -38,8 +38,8 @@ namespace OrdersAPI.BusinessRules
        
 		public async Task<bool> AddOrder(Order order, CancellationToken ct = default)
 		{
-			var result = _ordersRepo.AddOrder(order,ct);
-			return result.Result;
+			var result = await _ordersRepo.AddOrder(order,ct);
+			return result;		
 		}
 	}
 }
