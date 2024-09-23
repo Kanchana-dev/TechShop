@@ -15,7 +15,7 @@ namespace ProductsAPI.BusinessRules
 		public async Task<List<Product>> GetAllProducts()
 		{
 			_logger.LogInformation("In ProductsBusinessRules");
-			var products = await _productsRepo.GetAllProducts();
+			var products = _productsRepo.GetAllProducts().Result;
 			if (products != null && products.Count > 0)
 			{
 				_logger.LogInformation("Leaving ProductsBusinessRules");
@@ -30,7 +30,7 @@ namespace ProductsAPI.BusinessRules
 		{
 			_logger.LogInformation("In ProductsBusinessRules");
 
-			var quantity = await _productsRepo.GetQuantity();
+			var quantity = _productsRepo.GetQuantity().Result;
 			if (quantity != null )
 			{
 				_logger.LogInformation("Leaving ProductsBusinessRules");

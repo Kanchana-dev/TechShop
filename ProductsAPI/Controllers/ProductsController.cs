@@ -25,7 +25,7 @@ namespace ProductsAPI.Controllers
 
 			try
 			{
-				return Ok(await _productsBusinessRules.GetAllProducts());
+				return Ok(_productsBusinessRules.GetAllProducts().Result);
 			}
 			catch (Exception ex)
 			{
@@ -42,7 +42,7 @@ namespace ProductsAPI.Controllers
 
 			try
 			{			
-				return Ok(await _productsBusinessRules.GetQuantity());
+				return Ok(_productsBusinessRules.GetQuantity().Result);
 			}
 			catch (Exception ex)
 			{

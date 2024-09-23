@@ -31,7 +31,7 @@ namespace OrdersAPI
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
-                    Description = "Please enter 'Bearer jwt'",
+                    Description = "Please enter 'jwt'",
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });

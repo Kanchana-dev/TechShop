@@ -28,7 +28,7 @@ namespace OrdersAPI.Controllers
 			
 			try
 			{
-				return Ok(await _ordersBusinessRules.GetAllOrders(ct));
+				return Ok(_ordersBusinessRules.GetAllOrders(ct).Result);
 			}
 			catch (OperationCanceledException cte)
 			{
@@ -45,20 +45,13 @@ namespace OrdersAPI.Controllers
 
 		// GET api/<OrdersController>/5
 		[HttpGet("getallorders/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Get(Guid id, CancellationToken ct=default)
+		public async Task<IActionResult> Get(Guid id, CancellationToken ct=default)
 		{
             _logger.LogInformation($"Get Orders by UserId - {id}");
-			if (id == Guid.Empty)
-			{
-				_logger.LogInformation("UserId is empty");
-				return BadRequest();
-			}
 
-			try
+            try
             {		
-				return Ok(await _ordersBusinessRules.GetUserOrders(id, ct));
+				return Ok(_ordersBusinessRules.GetUserOrders(id, ct).Result);
             }
             catch (Exception ex)
             {
@@ -84,7 +77,7 @@ namespace OrdersAPI.Controllers
 
 			try
 			{
-				return Ok(await _ordersBusinessRules.AddOrder(order, ct));		  
+				return Ok(_ordersBusinessRules.AddOrder(order, ct).Result);		  
 			}
 			catch (TaskCanceledException cte)
 			{
