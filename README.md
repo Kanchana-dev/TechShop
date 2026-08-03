@@ -28,8 +28,9 @@ Solution:
    this storage is accessed to see for data with filename, if yes, no external API call to Meteo is made. If 'weather-data' does
    not have a date json, external API call is made to Meteo, result is saved in 'weather-data'. This avoids unnecessary multiple calls
    to Meteo API.
-6. Blazor UI displays results in Table. Client-side Sorting is enabled.  
-7. Razor pages provide user friendly space for warnings, errors. 
+6. Blazor UI displays results in a Table. Client-side Sorting is enabled.  
+7. Razor pages provide user friendly warnings, errors.
+8. Postman is utilized to run open meteo GET api calls, to inspect result set data. 
 
 
 **TechShop**
