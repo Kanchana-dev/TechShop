@@ -1,6 +1,6 @@
 TechShop is a Blazor WebAssembly project built in .NET 8.0
 
-A new Web API- WeatherAPI is added to TechShop solution to display historical weather data on Login page. For login, and rest of the TechShop project refer to notes in later part - **TechShop**.
+A new Web API - WeatherAPI is added to TechShop solution to display historical weather data on Login page. For login and rest of the TechShop project refer to notes in later part - **TechShop**.
 **WeatherAPI**
 Goal of this project is to read dates from a text file, pass those to open Meteo API to fetch weather report and save fetched data.
 
