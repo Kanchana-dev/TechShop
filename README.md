@@ -7,6 +7,7 @@ A new Web API - WeatherAPI is added to TechShop solution to display historical w
 Goal of this project is to read dates from a text file, pass those to open Meteo API to fetch weather report and save fetched data.
 
 Architecture of the project:
+
 Blazor UI loads --> Async call to Proxy API endpoint --> Behind Firewall API endpoint --> Read dates.txt, if stored previously, read it, if not call open Meteo API to get data --> send this payload back to UI --> display in a table.
 
 Design Considerations:
