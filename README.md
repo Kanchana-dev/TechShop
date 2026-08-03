@@ -14,7 +14,7 @@ Design Considerations:
 1. Read only data.
 2. Initially small input read but may grow eventually.
 3. Error Handling.
-4. Memory allocation - onprem or on cloud to spin off multi threads to read dates.txt
+4. Memory allocation - onprem or on cloud to spin off multi threads to read dates.txt and 'weather-data' json files.
 
 Solution:
 1. Created a new Web API project - WeatherAPI.
