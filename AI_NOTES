@@ -1,0 +1,7 @@
+
+Copilot usage:
+
+1. Parsing different format strings to ISO dates.
+2. Sorting of results in UI, comparing client-side and server-side sorting.
+3. AI suggested to go with concurrent dictionaries to cache results but the suggestion was disregarded
+   as storing data permanently will be heavy overhead, memory impact on server overtime.
