@@ -1,14 +1,10 @@
 ﻿@page "/home"
-@using Microsoft.AspNetCore.Authorization
-
 @using Shopping_App.Services
+
 @inject AuthService AuthService
 
 @if (AuthService.token != null)
 {
-
-	
-
 	<h5>Welcome to your new Shopping App</h5>
 
 

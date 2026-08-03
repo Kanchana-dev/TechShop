@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.9.34728.123
+# Visual Studio Version 18
+VisualStudioVersion = 18.8.12023.21 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersAPI", "OrdersAPI\OrdersAPI.csproj", "{3A07C612-2D20-4ED0-A254-C184410EF9E4}"
 EndProject
@@ -21,6 +21,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersAPI_Test", "OrdersAPI_Test\OrdersAPI_Test.csproj", "{2C1FEBD8-FF1F-4A7F-82F8-7DD5057D0EBC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationAPI", "AuthenticationAPI\AuthenticationAPI.csproj", "{D5E6F00E-2885-4A36-A55D-76BCA9BF724B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherAPI", "WeatherAPI\WeatherAPI.csproj", "{11EE523C-C097-4E77-8A02-A00FE1629A6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{D5E6F00E-2885-4A36-A55D-76BCA9BF724B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E6F00E-2885-4A36-A55D-76BCA9BF724B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5E6F00E-2885-4A36-A55D-76BCA9BF724B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11EE523C-C097-4E77-8A02-A00FE1629A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11EE523C-C097-4E77-8A02-A00FE1629A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11EE523C-C097-4E77-8A02-A00FE1629A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11EE523C-C097-4E77-8A02-A00FE1629A6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

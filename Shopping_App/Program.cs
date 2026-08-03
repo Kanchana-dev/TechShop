@@ -38,7 +38,15 @@ namespace Shopping_App
 			builder.Services.AddScoped<OrdersService>();
 			builder.Services.AddScoped<ProductsService>();
 
-			await builder.Build().RunAsync();
+			builder.Services.AddHttpClient("WeatherProxy", client =>
+			{
+				client.BaseAddress = new Uri("http://localhost:5214/");
+			});
+
+			
+			builder.Services.AddScoped<WeatherProxyService>();
+			
+			await builder.Build().RunAsync();	
 
 		}
 

@@ -42,7 +42,7 @@ namespace Shopping_App.Services
 				if (_loginModel != null)
 				{
 					token = _loginModel.jwtToken;
-					_localStorage.SetItem("token", token);
+					await _localStorage.SetItem("token", token);
 					LoggedUser = _loginModel;
 					await _localStorage.SetItem("user", _loginModel);
 				}
